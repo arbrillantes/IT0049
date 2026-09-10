@@ -5,7 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="A simple point-of-sale account management website.">
     <title><?= esc($title) ?> | POS Brillantes</title>
-    <link rel="stylesheet" href="<?= base_url('css/style.css') ?>">
+    <?php
+$isRender = str_contains($_SERVER['HTTP_HOST'] ?? '', 'onrender.com');
+$cssUrl = $isRender
+    ? '/css/style.css'
+    : base_url('css/style.css');
+?>
+
+<link rel="stylesheet" href="<?= esc($cssUrl) ?>">
 </head>
 <body>
     <header class="site-header">
