@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="A simple point-of-sale account management website.">
     <title><?= esc($title) ?> | POS Brillantes</title>
-    <link rel="stylesheet" href="<?= base_url('css/style.css') ?>">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
     <header class="site-header">
