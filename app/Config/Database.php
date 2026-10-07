@@ -33,7 +33,7 @@ class Database extends Config
         'DBDriver'     => 'MySQLi',
         'DBPrefix'     => '',
         'pConnect'     => false,
-        'DBDebug'      => true,
+        'DBDebug'      => ENVIRONMENT !== 'production',
         'charset'      => 'utf8mb4',
         'DBCollat'     => 'utf8mb4_general_ci',
         'swapPre'      => '',
@@ -190,6 +190,33 @@ class Database extends Config
     public function __construct()
     {
         parent::__construct();
+
+        $databaseUrl = getenv('DATABASE_URL');
+
+        if (is_string($databaseUrl) && $databaseUrl !== '') {
+            $connection = parse_url($databaseUrl);
+
+            if (
+                $connection === false
+                || ! isset($connection['scheme'], $connection['host'], $connection['path'])
+                || ! in_array(strtolower($connection['scheme']), ['postgres', 'postgresql'], true)
+            ) {
+                throw new \RuntimeException('DATABASE_URL must be a valid PostgreSQL connection URL.');
+            }
+
+            $normalizedUrl = preg_replace(
+                '/^postgres(?:ql)?:\/\//i',
+                'Postgre://',
+                $databaseUrl
+            );
+
+            $this->default = array_replace($this->default, [
+                'DSN'      => $normalizedUrl,
+                'DBDriver' => 'Postgre',
+                'charset'  => 'utf8',
+                'DBCollat' => '',
+            ]);
+        }
 
         // Ensure that we always set the database group to 'tests' if
         // we are currently running an automated test suite, so that

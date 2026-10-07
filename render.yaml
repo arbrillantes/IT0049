@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: simplepos-brillantes
+    runtime: docker
+    plan: free
+    region: singapore
+    healthCheckPath: /health
+    envVars:
+      - key: CI_ENVIRONMENT
+        value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: simplepos-database
+          property: connectionString
+
+databases:
+  - name: simplepos-database
+    plan: free
+    region: singapore
+    databaseName: simplepos
+    user: simplepos
+    ipAllowList: []

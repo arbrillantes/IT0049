@@ -10,22 +10,7 @@
 
     <title><?= esc($title ?? 'Home') ?> | POS Brillantes</title>
 
-    <?php
-    $isRender = str_contains(
-        $_SERVER['HTTP_HOST'] ?? '',
-        'onrender.com'
-    );
-
-    $pageUrl = function (string $path = '') use ($isRender): string {
-        return $isRender
-            ? '/' . ltrim($path, '/')
-            : base_url($path);
-    };
-
-    $cssUrl = $pageUrl('css/style.css');
-    ?>
-
-    <link rel="stylesheet" href="<?= esc($cssUrl) ?>">
+    <link rel="stylesheet" href="<?= esc(base_url('css/style.css')) ?>">
 </head>
 
 <body>
@@ -33,7 +18,7 @@
         <div class="nav-wrap">
             <a
                 class="brand"
-                href="<?= $pageUrl('/') ?>"
+                href="<?= esc(site_url('/')) ?>"
                 aria-label="POS Brillantes home"
             >
                 <span class="brand-mark">P</span>
@@ -43,28 +28,28 @@
             <nav aria-label="Main navigation">
                 <a
                     class="<?= ($active ?? '') === 'home' ? 'active' : '' ?>"
-                    href="<?= $pageUrl('/') ?>"
+                    href="<?= esc(site_url('/')) ?>"
                 >
                     Home
                 </a>
 
                 <a
                     class="<?= ($active ?? '') === 'about' ? 'active' : '' ?>"
-                    href="<?= $pageUrl('about') ?>"
+                    href="<?= esc(site_url('about')) ?>"
                 >
                     About
                 </a>
 
                 <a
                     class="<?= ($active ?? '') === 'customers' ? 'active' : '' ?>"
-                    href="<?= $pageUrl('customers') ?>"
+                    href="<?= esc(site_url('customers')) ?>"
                 >
                     Customers
                 </a>
 
                 <a
                     class="<?= ($active ?? '') === 'users' ? 'active' : '' ?>"
-                    href="<?= $pageUrl('users') ?>"
+                    href="<?= esc(site_url('users')) ?>"
                 >
                     Users
                 </a>

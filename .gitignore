@@ -1,5 +1,6 @@
 .env
 /vendor/
+/build/
 /writable/cache/*
 /writable/debugbar/*
 /writable/logs/*
